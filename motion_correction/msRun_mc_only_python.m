@@ -35,8 +35,8 @@ end
 % later version.
 % Contact: etterguillaume@gmail.com
 
-%Add path to files (If this doesn't add folders to path correctly just do it manually)
-addpath(genpath('C:/Users/General Correa Lab/Documents/GitHub/PV_minian/motion_correction/')); 
+%Add necessary folders to path (Only need to do once)
+%addpath(genpath('C:/Users/General Correa Lab/Documents/GitHub/PV_minian/motion_correction/')); 
 
 %
 %% Auto-detect operating system
