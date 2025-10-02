@@ -29,12 +29,12 @@ function ms = msGenerateVideoObj(dirName)%, filePrefix)
 ms.numFiles = length(aviFiles)
     
     %generate a vidObj for each video file. Also calculate total frames
-    for i=0:(round(ms.numFiles-1)) %PV changed this to iterate from 0
+    for i=0:(ms.numFiles-1) %PV changed this to iterate from 0
 %         [folder filesep num2str(filePrefix) num2str(i) '.avi']
-        ms.vidObj{i+1} = VideoReader([dirName num2str(i) '.avi']); %PV changed index to i+1
-        ms.vidNum = [ms.vidNum i*ones(1,ms.vidObj{i+1}.NumberOfFrames)];
-        ms.frameNum = [ms.frameNum 1:ms.vidObj{i+1}.NumberOfFrames];
-        ms.numFrames = ms.numFrames + ms.vidObj{i+1}.NumberOfFrames;
+        ms.vidObj{i} = VideoReader([dirName filesep num2str(filePrefix) num2str(i) '.avi']);
+        ms.vidNum = [ms.vidNum i*ones(1,ms.vidObj{i}.NumberOfFrames)];
+        ms.frameNum = [ms.frameNum 1:ms.vidObj{i}.NumberOfFrames];
+        ms.numFrames = ms.numFrames + ms.vidObj{i}.NumberOfFrames;
     end
     ms.height = ms.vidObj{1}.Height;
     ms.width = ms.vidObj{1}.Width;

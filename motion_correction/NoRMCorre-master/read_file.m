@@ -53,10 +53,12 @@ elseif strcmpi(ext,'.avi')
         imData = [];
     else
         if nargin < 3
-            num2read = v.Duration*v.FrameRate-sframe+1;
+            num2read = v.Duration*v.FrameRate-sframe+1; %rounded this so that it is an integer
         end
         num2read = min(num2read,v.Duration*v.FrameRate-sframe+1);
+        num2read=round(num2read); %added this line so that num2read is an integer
         Y1 = readFrame(v);
+        Y1 = Y1(:,:,1); %readFrame was reading the video as RGB and creating a 600x600x3 matrix (3 dimension was channel color) - this fixes it. Overall, values for each channel were practically identical
         imData = zeros(v.Height,v.Width,num2read,'like',Y1);
         i = 1;
         if sframe == 1
@@ -64,6 +66,7 @@ elseif strcmpi(ext,'.avi')
         end
         while hasFrame(v)  && (i - sframe + 1 < num2read)
             video = readFrame(v);
+            video = video(:,:,1); %same case as above in line 61
             i = i + 1;
             if i >= sframe
                 imData(:,:,i-sframe+1) = video;

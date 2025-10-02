@@ -233,7 +233,7 @@ for t = 1:bin_width:T
                     Mf{ii} = M_fin;
                 else
                     shifts_up = shifts_temp(ii).shifts_up;
-                    shifts_cell = mat2cell(shifts_up,ones(length(xx_uf),1),ones(length(yy_uf),1),ones(length(zz_uf),1),nd);
+                    shifts_cell = mat2cell(shifts_up,ones(length(xx_uf),1),ones(length(yy_uf),1),ones(length(zz_uf),1),nd); %Previously altered by PV, reverted back to original code
                     diff_cell = num2cell(shifts_temp(ii).diff);
                     M_fin = cellfun(shift_fun,Yfft,shifts_cell,diff_cell,Nr,Nc,Np,'un',0);
 

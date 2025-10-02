@@ -1,4 +1,4 @@
-function ms = msNormCorre(ms,isnonrigid);
+function ms = msNormCorre(ms,isnonrigid,options);
 % Performs fast, rigid registration (option for non-rigid also available).
 % Relies on NormCorre (Paninski lab). Rigid registration works fine for
 % large lens (1-2mm) GRIN lenses, while non-rigid might work better for
@@ -27,9 +27,13 @@ bound = round(ms.height/(2*ms.ds));
 
 template = [];
 
-writerObj = VideoWriter([ms.dirName separator ms.analysis_time separator 'msvideo.avi'],'Grayscale AVI');
+%Set video output path
+disp(options.vid_path) %PV added this to display output path
+vid_path = options.vid_path; %PV added this to set custom video location in msRun
+writerObj = VideoWriter(vid_path,'Grayscale AVI'); %PV changed this to use vid_path variable
 open(writerObj);
 
+%Do motion correction
 ms.shifts = [];
 ms.meanFrame = [];
 
@@ -45,12 +49,12 @@ for video_i = 1:ms.numFiles;
     Y = imfilter(Yf,psf,'symmetric');
     [d1,d2,T] = size(Y);
       
-    % Setting registration parameters (rigid vs non-rigid)
+    % Setting registration parameters (rigid vs non-rigid) %PV altered so that most parameters are set in msRun2018
     if isnonrigid
         disp('Non-rigid motion correction...');
-    options = NoRMCorreSetParms('d1',d1,'d2',d2,'bin_width',50, ...
-    'grid_size',[128,128]*2,'mot_uf',4,'correct_bidir',false, ...
-    'overlap_pre',32,'overlap_post',32,'max_shift',20);
+    options = NoRMCorreSetParms('d1',d1,'d2',d2,'bin_width',options.bin_width, 'grid_size',options.grid_size, ... 
+    'mot_uf',options.mot_uf,'correct_bidir',options.correct_bidir, ...
+    'overlap_pre',options.overlap_pre,'overlap_post',options.overlap_post,'max_shift',options.max_shift);
     else
         disp('Rigid motion correction...');
     options = NoRMCorreSetParms('d1',d1-bound,'d2',d2-bound,'bin_width',200,'max_shift',20,'iter',1,'correct_bidir',false);
@@ -58,13 +62,20 @@ for video_i = 1:ms.numFiles;
     
     %% register using the high pass filtered data and apply shifts to original data
     if isempty(template);
-        [M1,shifts1,template] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options); % register filtered data
-        % exclude boundaries due to high pass filtering effects
+        if isnonrigid; %PV added this
+            [M1,shifts1,template] = normcorre(Y,options); % register filtered data %PV altered, Original code which "exclude boundaries due to high pass filtering effects": normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options);
+        else
+            [M1,shifts1,template] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options); %Original code that PV changed for nonrigid analysis (new code for nonrigid doesn't work for rigid)
+        end
     else
-        [M1,shifts1,template] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template); % register filtered data
+        if isnonrigid; %PV added this
+            [M1,shifts1,template] = normcorre(Y,options,template); % register filtered data %PV altered, Original code which "exclude boundaries due to high pass filtering effects": normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template);
+        else
+            [M1,shifts1,template] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template); %Original code that PV changed for nonrigid analysis (new code for nonrigid doesn't work for rigid)
+        end
     end
     
-    Mr = apply_shifts(Yf,shifts1,options,bound/2,bound/2); % apply shifts to full dataset
+    Mr = apply_shifts(Yf,shifts1,options,options.overlap_post(1)/2,options.overlap_post(1)/2); % apply shifts to full dataset %PV altered, original code: apply_shifts(Yf,shifts1,options,bound/2,bound/2);
     % apply shifts on the whole movie    
     
     writeVideo(writerObj,uint8(Mr));
