@@ -1,37 +1,13 @@
-[![pytest status](https://github.com/denisecailab/minian/workflows/pytest/badge.svg?branch=master)](https://github.com/DeniseCaiLab/minian/actions?query=workflow%3Apytest)
-[![codecov](https://codecov.io/gh/DeniseCaiLab/minian/branch/master/graph/badge.svg)](https://codecov.io/gh/DeniseCaiLab/minian)
-[![conda version](https://img.shields.io/conda/vn/conda-forge/minian.svg)](https://anaconda.org/conda-forge/minian)
-[![documentation status](https://readthedocs.org/projects/minian/badge/?version=latest)](https://minian.readthedocs.io/en/latest/?badge=latest)
+See upstream MiniAn repo for full details on MiniAn package.
 
-[![license](https://img.shields.io/github/license/denisecailab/minian)](https://www.gnu.org/licenses/gpl-3.0)
-[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![commit style](https://img.shields.io/badge/commit_style-conventional-orange)](https://conventionalcommits.org)
+# Quick Start Guide for Paul's version
 
-
-# MiniAn
-
-MiniAn is an analysis pipeline and visualization tool inspired by both [CaImAn](https://github.com/flatironinstitute/CaImAn) and [MIN1PIPE](https://github.com/JinghaoLu/MIN1PIPE) package specifically for [Miniscope](http://miniscope.org/index.php/Main_Page) data.
-
-# Quick Start Guide
-
-1. Create a new conda env: `conda create -y --name minian`
-1. Activate the environment: `conda activate minian`
-1. Install MiniAn: `conda install -y -c conda-forge minian`
-1. Install the pipeline notebooks: `minian-install --notebooks`
-1. Optional install the demo movies: `minian-install --demo`
+1. Clone this repository to your computer
+1. Download Anaconda Navigator (https://www.anaconda.com/products/navigator)
+1. Install MATLAB https://www.mathworks.com/products/matlab.html and add PV_minian GitHub directory (with subfolders) to MATLAB path
+1. Launch Anaconda Prompt
+1. Install mamba (much faster than conda for environment management): `conda install mamba`
+1. Change directory to cloned repository `cd [path to GitHub folder]/PV_minian`
+1. Create new environment from environment.yml file: `mamba env create -n [environment-name] -f environment.yml`
+1. Install MATLAB Python Engine (to run NormCorre) `pip install matlabengine`
 1. Fire up jupyter: `jupyter notebook` and open the notebook "pipeline.ipynb"
-
-# Documentation
-
-MiniAn documentation is hosted on ReadtheDocs at:
-
-https://minian.readthedocs.io/
-
-# Contributing to MiniAn
-
-We would love feedback and contribution from the community!
-See [the contribution page](https://minian.readthedocs.io/en/latest/start_guide/contribute.html) for more detail!
-
-# License
-
-This project is licensed under GNU GPLv3.
