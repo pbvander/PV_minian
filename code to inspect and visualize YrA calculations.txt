@@ -1,0 +1,117 @@
+import functools as fct
+import os
+import warnings
+from typing import List, Optional, Tuple, Union
+
+import cv2
+import cvxpy as cvx
+import dask as da
+import dask.array as darr
+import networkx as nx
+import numba as nb
+import numpy as np
+import pandas as pd
+import pyfftw.interfaces.numpy_fft as numpy_fft
+import pymetis
+import scipy.sparse
+import sparse
+import xarray as xr
+import zarr
+from distributed import get_client
+from scipy.linalg import lstsq, toeplitz
+from scipy.ndimage import label
+from scipy.signal import butter, lfilter, welch
+from scipy.sparse import dia_matrix
+from skimage import morphology as moph
+from sklearn.linear_model import LassoLars
+from statsmodels.tsa.stattools import acovf
+
+Y = Y_fm_chk
+C = C_chk
+
+fms = Y.coords["frame"]
+uid = A.coords["unit_id"]
+Y = Y.data
+A = darr.from_array(A.data.map_blocks(sparse.COO).compute(), chunks=-1)
+C = C.data.map_blocks(sparse.COO).T
+b = (
+    b.fillna(0)
+    .data.map_blocks(sparse.COO)
+    .reshape((1, Y.shape[1], Y.shape[2]))
+    .compute()
+)
+f = f.fillna(0).data.reshape((-1, 1))
+AtA = darr.tensordot(A, A, axes=[(1, 2), (1, 2)]).compute()
+A_norm = (
+    (1 / (A ** 2).sum(axis=(1, 2)))
+    .map_blocks(
+        lambda a: sparse.diagonalize(sparse.COO(a)), chunks=(A.shape[0], A.shape[0])
+    )
+    .compute()
+)
+B = darr.tensordot(f, b, axes=[(1), (0)])
+Y = Y - B
+YtA = darr.tensordot(Y, A, axes=[(1, 2), (1, 2)])
+YtA = darr.dot(YtA, A_norm)
+CtA = darr.dot(C, AtA)
+CtA = darr.dot(CtA, A_norm)
+YrA = (YtA - CtA + C).clip(0)
+YrA = xr.DataArray(
+        YrA,
+        dims=["frame", "unit_id"],
+        coords={"frame": fms, "unit_id": uid},
+    ).transpose("unit_id", "frame")
+
+YtA = xr.DataArray(YtA, dims=['frame','unit_id'])
+cta_d = xr.DataArray(CtA, dims=['frame','unit_id'])
+cta_d = cta_d.data.map_blocks(sparse.COO.todense, dtype=np.float64)
+cta_d = xr.DataArray(cta_d, dims=['frame','unit_id'])
+YCtA = xr.DataArray(YtA - CtA, dims=['frame','unit_id'])
+
+
+
+hv.output(size=int(output_size * 0.55))
+im_opts = dict(
+    frame_width=500,
+    aspect=1,
+    cmap="Viridis",
+    colorbar=True,
+)
+cr_opts = dict(frame_width=750, aspect=1.5)
+(
+    regrid(
+        hv.Image(
+            xr.DataArray(AtA.todense(), dims=['unit','unit_id'])
+        ).opts(**im_opts)
+    ).relabel("AtA")
+    + regrid(
+        hv.Image(
+            xr.DataArray(A_norm.todense(), dims=['unit','unit_id'])
+        ).opts(**im_opts)
+    ).relabel("A_norm")
+    + regrid(
+        hv.Image(
+            YtA.rename("YrA").compute().astype(np.float32), kdims=["frame", "unit_id"]
+        ).opts(cmap="viridis", colorbar=True, **cr_opts)
+    ).relabel("YtA")
+    + regrid(
+        hv.Image(
+            cta_d.rename("CtA").compute().astype(np.float32), kdims=["frame", "unit_id"]
+        ).opts(cmap="viridis", colorbar=True, **cr_opts)
+    ).relabel("CtA")
+    + regrid(
+        hv.Image(
+            YCtA.rename("YCtA").compute().astype(np.float32), kdims=["frame", "unit_id"]
+        ).opts(cmap="viridis", colorbar=True, **cr_opts)
+    ).relabel("YtA-CtA")
+    + regrid(
+        hv.Image(
+            C_chk.rename("C").compute().astype(np.float32), kdims=["frame", "unit_id"]
+        ).opts(cmap="viridis", colorbar=True, **cr_opts)
+    ).relabel("C")
+    + regrid(
+        hv.Image(
+            YrA.rename("YrA").compute().astype(np.float32), kdims=["frame", "unit_id"]
+        ).opts(cmap="viridis", colorbar=True, **cr_opts)
+    ).relabel("YrA")
+).cols(4)
