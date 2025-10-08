@@ -88,12 +88,12 @@ for vid_i = 1:size(ms.shifts,2) %iterate through all videos
     num_frames = size(vid_shifts, 2); %get size of dimension 2 (frames) of vid_shifts array
     if vid_i==1 
         motion = cell(0, 2); %initialize array, if not already done
-        motion{1,1} = 'width'; %add header
-        motion{1,2} = 'height'; %add header
+        motion{1,2} = 'width'; %add header
+        motion{1,1} = 'height'; %add header
     end
     for frame_i = 1:num_frames %iterate through each frame
-        motion{frame_i + ((vid_i-1)*1000) + 1, 1} = vid_shifts{frame_i}(2); %horizontal/width shift
-        motion{frame_i + ((vid_i-1)*1000) + 1, 2} = vid_shifts{frame_i}(1); %vertical/height shift
+        motion{frame_i + ((vid_i-1)*1000) + 1, 2} = vid_shifts{frame_i}(2); %horizontal/width shift
+        motion{frame_i + ((vid_i-1)*1000) + 1, 1} = vid_shifts{frame_i}(1); %vertical/height shift
     end
 end
 vid_path_split = strsplit(vid_path, "\\");
