@@ -8,5 +8,11 @@ See upstream MiniAn repo for full details on MiniAn package.
 1. Launch MiniForge Prompt
 1. Change directory to cloned repository `cd [path to GitHub folder]/PV_minian`
 1. Create new environment from environment.yml file: `mamba env create -n [environment-name] -f environment.yml` (be patient this step may take a while to execute)
+1. Activate your new environment `mamba activate [environment name]`
 1. Install MATLAB Python Engine (to run NormCorre) `pip install matlabengine`
+1. Fire up jupyter: `jupyter notebook` and open the notebook "pipeline.ipynb"
+
+# Re-launching after installation is complete
+1. Launch MiniForge Prompt
+1. Activate your new environment `mamba activate [environment name]`
 1. Fire up jupyter: `jupyter notebook` and open the notebook "pipeline.ipynb"
