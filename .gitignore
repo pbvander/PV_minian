@@ -137,3 +137,4 @@ minian_intermediate
 
 # R history files
 *.Rhistory
+*.asv
