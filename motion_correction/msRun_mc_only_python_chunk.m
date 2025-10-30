@@ -70,6 +70,7 @@ for i=1:length(files)
     files(i).chunk = floor(files(i).vid_i/chk_size)+1;
 end
 
+template = [];
 for chk = 1:length(unique([files.chunk]))
     vids = [files([files.chunk] == chk).vid_i];
     disp("Starting chunk " + num2str(chk))
@@ -90,7 +91,7 @@ for chk = 1:length(unique([files.chunk]))
         'mot_uf',mot_uf,'correct_bidir',correct_bidir, ...
         'overlap_pre',overlap_pre,'overlap_post',overlap_post,'max_shift',max_shift, 'vid_path',vid_path);
     
-    ms = msNormCorre_chunk(ms, chk,isnonrigid, normcorre_options); %PV altered msNormCorre.m script so that it worked with different grid sizes
+    [ms, template] = msNormCorre_chunk(ms, chk,template, isnonrigid, normcorre_options); %PV altered msNormCorre.m script so that it worked with different grid sizes
     save([ms.dirName separator 'ms.mat'],'ms');
     % sys=system('python "C:/Users/General Correa Lab/Box/correalab/Member Folders/Paul Vander/Code/SendTextMessage.py" 7349685923 verizon "Motion correction is done!"'); %sends a text when code is done running
     

@@ -1,4 +1,4 @@
-function ms = msNormCorre_chunk(ms,chk,isnonrigid,options);
+function [ms, template] = msNormCorre_chunk(ms,chk,template, isnonrigid,options);
 % Performs fast, rigid registration (option for non-rigid also available).
 % Relies on NormCorre (Paninski lab). Rigid registration works fine for
 % large lens (1-2mm) GRIN lenses, while non-rigid might work better for
@@ -24,8 +24,6 @@ ind_nonzero = (psf(:)>=max(psf(:,1)));
 psf = psf-mean(psf(ind_nonzero));
 psf(~ind_nonzero) = 0;
 bound = round(ms.height/(2*ms.ds));
-
-template = [];
 
 %Set video output path
 disp(options.vid_path) %PV added this to display output path
@@ -63,16 +61,18 @@ for video_i = 1:ms.numFiles;
     
     %% register using the high pass filtered data and apply shifts to original data
     if isempty(template);
+        disp('Making template')
         if isnonrigid; %PV added this
             [M1,shifts1,template] = normcorre(Y,options); % register filtered data %PV altered, Original code which "exclude boundaries due to high pass filtering effects": normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options);
         else
             [M1,shifts1,template] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options); %Original code that PV changed for nonrigid analysis (new code for nonrigid doesn't work for rigid)
         end
     else
+        disp('Using existing template')
         if isnonrigid; %PV added this
-            [M1,shifts1,template] = normcorre(Y,options,template); % register filtered data %PV altered, Original code which "exclude boundaries due to high pass filtering effects": normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template);
+            [M1,shifts1,~] = normcorre(Y,options,template); % register filtered data %PV altered, Original code which "exclude boundaries due to high pass filtering effects": normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template);
         else
-            [M1,shifts1,template] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template); %Original code that PV changed for nonrigid analysis (new code for nonrigid doesn't work for rigid)
+            [M1,shifts1,~] = normcorre(Y(bound/2+1:end-bound/2,bound/2+1:end-bound/2,:),options,template); %Original code that PV changed for nonrigid analysis (new code for nonrigid doesn't work for rigid)
         end
     end
     
