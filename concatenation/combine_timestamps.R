@@ -10,6 +10,7 @@ library(gtools)
 setwd("C:/Users/paulv/Box/correalab/Member Folders/Paul Vander/Experiments/250417_circulating_E2_torpor_miniscope/pre-OVX_torpor/MT29/2025_05_22/session1")
 
 ##Miniscope timestamps
+print("Miniscope timestamps")
 ldf <- data.frame()
 tsdf<- data.frame()
 i=1
@@ -44,6 +45,7 @@ write_csv(tsdf,"./concatenated/My_V4_miniscope/timeStamps.csv")
 write_csv(ldf, "./concatenated/My_V4_miniscope/session_lengths.csv")
 
 ##Webcam timestamps
+print("Webcam timestamps")
 ldf <- data.frame()
 tsdf<- data.frame()
 i=1
