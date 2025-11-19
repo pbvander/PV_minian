@@ -1451,43 +1451,53 @@ def unit_merge(
             ).compute(),
             k=-1,
         )
-    print("computing temporal correlation")
-    nod_df = pd.DataFrame({"unit_id": A.coords["unit_id"].values})
-    adj = adj_corr(C, A_inter, nod_df, freq=noise_freq)
-    print("labeling units to be merged")
-    adj = adj > thres_corr
-    adj = adj + adj.T
-    unit_labels = xr.apply_ufunc(
-        label_connected,
-        adj,
-        input_core_dims=[["unit_id", "unit_id_cp"]],
-        output_core_dims=[["unit_id"]],
-    )
-    print("merging units")
-    A_merge = (
-        A.assign_coords(unit_labels=("unit_id", unit_labels))
-        .groupby("unit_labels")
-        .mean("unit_id")
-        .rename(unit_labels="unit_id")
-    )
-    C_merge = (
-        C.assign_coords(unit_labels=("unit_id", unit_labels))
-        .groupby("unit_labels")
-        .mean("unit_id")
-        .rename(unit_labels="unit_id")
-    )
-    if add_list:
-        for ivar, var in enumerate(add_list):
-            var_mrg = (
-                var.assign_coords(unit_labels=("unit_id", unit_labels))
-                .groupby("unit_labels")
-                .mean("unit_id")
-                .rename(unit_labels="unit_id")
-            )
-            add_list[ivar] = var_mrg
-        return A_merge, C_merge, add_list
-    else:
-        return A_merge, C_merge
+    print("Spatial overlap max = ",A_inter.tocsr().max()) #check spatial overlap and print it 
+    if A_inter.tocsr().max() > 0: #if spatial overlap is 0, the merge will fail and raise an error, so skip it if no cells are overlapping
+        print("computing temporal correlation")
+        nod_df = pd.DataFrame({"unit_id": A.coords["unit_id"].values})
+        adj = adj_corr(C, A_inter, nod_df, freq=noise_freq)
+        print("labeling units to be merged")
+        adj = adj > thres_corr
+        adj = adj + adj.T
+        unit_labels = xr.apply_ufunc(
+            label_connected,
+            adj,
+            input_core_dims=[["unit_id", "unit_id_cp"]],
+            output_core_dims=[["unit_id"]],
+        )
+        print("merging units")
+        A_merge = (
+            A.assign_coords(unit_labels=("unit_id", unit_labels))
+            .groupby("unit_labels")
+            .mean("unit_id")
+            .rename(unit_labels="unit_id")
+        )
+        C_merge = (
+            C.assign_coords(unit_labels=("unit_id", unit_labels))
+            .groupby("unit_labels")
+            .mean("unit_id")
+            .rename(unit_labels="unit_id")
+        )
+        if add_list:
+            for ivar, var in enumerate(add_list):
+                var_mrg = (
+                    var.assign_coords(unit_labels=("unit_id", unit_labels))
+                    .groupby("unit_labels")
+                    .mean("unit_id")
+                    .rename(unit_labels="unit_id")
+                )
+                add_list[ivar] = var_mrg
+            return A_merge, C_merge, add_list
+        else:
+            return A_merge, C_merge
+    else: #return unmodfified variables if spatial overlap is 0
+        print("No spatial overlap, returning unmerged arrays")
+        if add_list:
+            for ivar, var in enumerate(add_list):
+                add_list[ivar] = var
+            return A, C, add_list
+        else:
+            return A, C
 
 
 def label_connected(adj: np.ndarray, only_connected=False) -> np.ndarray:
