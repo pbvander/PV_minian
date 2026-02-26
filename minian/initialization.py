@@ -954,6 +954,50 @@ def edit_seeds_manual(seeds_final: pd.core.frame.DataFrame, dpath: str) -> pd.co
         seeds_final.loc[(seeds_final.width==376)&(seeds_final.height==214),"mask_mrg"]=True
         seeds_final.loc[(seeds_final.width==432)&(seeds_final.height==211),"mask_mrg"]=True
         seeds_final.loc[(seeds_final.width==396)&(seeds_final.height==258),"mask_mrg"]=True
+    if "MT34\\2025_12_20" in dpath:
+        seeds_final.loc[(seeds_final.width==335)&(seeds_final.height==307),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==443)&(seeds_final.height==264),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==439)&(seeds_final.height==266),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==391)&(seeds_final.height==348),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==283)&(seeds_final.height==201),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==389)&(seeds_final.height==304),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==346)&(seeds_final.height==275),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==353)&(seeds_final.height==143),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==416)&(seeds_final.height==290),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==470)&(seeds_final.height==250),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==475)&(seeds_final.height==258),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==477)&(seeds_final.height==264),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==490)&(seeds_final.height==245),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==463)&(seeds_final.height==315),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==365)&(seeds_final.height==226),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==392)&(seeds_final.height==352),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==445)&(seeds_final.height==318),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==430)&(seeds_final.height==293),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==365)&(seeds_final.height==304),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==371)&(seeds_final.height==235),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==395)&(seeds_final.height==219),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==386)&(seeds_final.height==228),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==411)&(seeds_final.height==229),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==397)&(seeds_final.height==236),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==383)&(seeds_final.height==244),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==395)&(seeds_final.height==282),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==405)&(seeds_final.height==277),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==413)&(seeds_final.height==256),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==395)&(seeds_final.height==261),"mask_mrg"]=True
+        seeds_final.loc[len(seeds_final)] = [207,254,1,True,True,True,True] 
+        seeds_final.loc[len(seeds_final)] = [228,279,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [239,242,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [200,218,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [292,296,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [140,394,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [392,381,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [373,395,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [166,316,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [359,317,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [359,331,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [358,463,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [215,456,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [163,274,1,True,True,True,True]
     if "MT31\\2025_12_17" in dpath:
         seeds_final.loc[(seeds_final.width==124)&(seeds_final.height==413),"mask_mrg"]=True
         seeds_final.loc[(seeds_final.width==127)&(seeds_final.height==419),"mask_mrg"]=False
