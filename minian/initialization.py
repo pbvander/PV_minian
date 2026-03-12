@@ -1562,7 +1562,97 @@ def edit_seeds_manual(seeds_final: pd.core.frame.DataFrame, dpath: str) -> pd.co
         seeds_final.loc[len(seeds_final)] = [327,207,1,True,True,True,True]
         seeds_final.loc[len(seeds_final)] = [419,275,1,True,True,True,True]
         seeds_final.loc[len(seeds_final)] = [322,340,1,True,True,True,True]
-    
+    if "MT36\\2026_02_09" in dpath:
+        seeds_final.loc[(seeds_final.width==290)&(seeds_final.height==293),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==286)&(seeds_final.height==297),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==359)&(seeds_final.height==231),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==362)&(seeds_final.height==237),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==303)&(seeds_final.height==237),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==330)&(seeds_final.height==254),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==244)&(seeds_final.height==223),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==302)&(seeds_final.height==175),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==294)&(seeds_final.height==132),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==356)&(seeds_final.height==215),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==321)&(seeds_final.height==207),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==304)&(seeds_final.height==283),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==352)&(seeds_final.height==298),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==376)&(seeds_final.height==262),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==353)&(seeds_final.height==183),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==329)&(seeds_final.height==281),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==289)&(seeds_final.height==192),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==302)&(seeds_final.height==177),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==368)&(seeds_final.height==247),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==371)&(seeds_final.height==242),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==355)&(seeds_final.height==217),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==352)&(seeds_final.height==257),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==376)&(seeds_final.height==267),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==291)&(seeds_final.height==296),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==304)&(seeds_final.height==283),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==356)&(seeds_final.height==185),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==356)&(seeds_final.height==175),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==327)&(seeds_final.height==277),"mask_mrg"]=True
+        seeds_final.loc[len(seeds_final)] = [321,250,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [155,292,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [316,363,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [285,399,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [139,264,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [157,311,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [210,382,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [258,290,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [244,230,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [299,237,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [212,196,1,True,True,True,True]
+    if "MT36\\2026_02_10" in dpath:
+        seeds_final.loc[(seeds_final.width==324)&(seeds_final.height==295),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==310)&(seeds_final.height==284),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==305)&(seeds_final.height==287),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==358)&(seeds_final.height==237),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==363)&(seeds_final.height==227),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==275)&(seeds_final.height==190),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==243)&(seeds_final.height==226),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==296)&(seeds_final.height==213),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==304)&(seeds_final.height==277),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==242)&(seeds_final.height==206),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==365)&(seeds_final.height==282),"mask_mrg"]=False
+        seeds_final.loc[(seeds_final.width==353)&(seeds_final.height==258),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==377)&(seeds_final.height==263),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==334)&(seeds_final.height==255),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==312)&(seeds_final.height==251),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==309)&(seeds_final.height==223),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==242)&(seeds_final.height==209),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==247)&(seeds_final.height==229),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==376)&(seeds_final.height==290),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==271)&(seeds_final.height==307),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==304)&(seeds_final.height==278),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==324)&(seeds_final.height==195),"mask_mrg"]=True
+        seeds_final.loc[(seeds_final.width==359)&(seeds_final.height==178),"mask_mrg"]=True
+        seeds_final.loc[len(seeds_final)] = [323,250,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [273,236,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [264,191,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [182,276,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [178,289,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [219,355,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [230,265,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [157,317,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [210,386,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [232,384,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [330,332,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [115,276,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [163,245,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [320,366,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [298,241,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [274,289,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [259,291,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [270,252,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [265,280,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [219,410,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [243,224,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [244,279,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [297,290,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [134,257,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [320,341,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [330,235,1,True,True,True,True]
+        seeds_final.loc[len(seeds_final)] = [175,397,1,True,True,True,True]
         
     return seeds_final
 
