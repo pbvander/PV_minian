@@ -444,7 +444,7 @@ def save_minian(
     overwrite=False,
     chunks: Optional[dict] = None,
     compute=True,
-    mem_limit="5000MB",
+    mem_limit="500MB",
 ) -> xr.DataArray:
     """
     Save a `xr.DataArray` with `zarr` storage backend following minian
