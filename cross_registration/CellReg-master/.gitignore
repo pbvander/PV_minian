@@ -1,0 +1,6 @@
+# Matlab files
+*.asv
+*.mat
+*.fig
+/SampleData/Results/*
+/SampleData/Figures/*
