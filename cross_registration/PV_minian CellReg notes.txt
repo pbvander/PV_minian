@@ -1,0 +1,5 @@
+1. Run convert_all_to_cell_reg.m to convert all ms.mat files to cellreg.mat files which are formatted for input into CellReg
+2. Run CellReg-master/CellReg_setup.m
+3. Run CellReg-master/GUI/CellReg.m and follow instructions in CellReg-master/Docs/User Manual.docx
+4. Check alignment translation and rotation values in cellRegistered_[date].mat to ensure that they are reasonable.
+
